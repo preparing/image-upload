@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">image-upload</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">ImageLoad</string>
     <string name="hello_world">Hello world!</string>
+    <string name="take_picture">Take picture</string>
+    <string name="btnTakePicture">Capture Image</string>
+    <string name="btnRecordVideo">Record Video</string>
+    <string name="or">(or)</string>
+    <string name="btnUploadToServer">添加图片</string>
+    <string name="load_picture">覆盖图片</string>	
+    <string name="introduce">最便捷二手物品交易平台轻松购买闲置的书籍课本</string>
 
 </resources>
+    
+
