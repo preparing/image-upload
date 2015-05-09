@@ -11,15 +11,18 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f040005;
+        public static final int black=0x7f040008;
+        public static final int blue=0x7f040006;
         public static final int custom_text=0x7f040001;
+        public static final int green=0x7f040005;
         public static final int head_text=0x7f040000;
-        public static final int llwhite=0x7f040008;
-        public static final int lwhite=0x7f040007;
+        public static final int lblue=0x7f040007;
+        public static final int llwhite=0x7f04000b;
+        public static final int lwhite=0x7f04000a;
         public static final int normal=0x7f040003;
-        public static final int rectangle_border=0x7f040009;
+        public static final int rectangle_border=0x7f04000c;
         public static final int transparent=0x7f040004;
-        public static final int white=0x7f040006;
+        public static final int white=0x7f040009;
         public static final int windows_bg=0x7f040002;
     }
     public static final class dimen {
@@ -44,17 +47,21 @@ public final class R {
         public static final int rectangle_6666_blue5=0x7f020008;
         public static final int rectangle_6666_white2_nopadding=0x7f020009;
         public static final int rectangle_6666_white3=0x7f02000a;
+        public static final int rectangle_border=0x7f02000b;
+        public static final int verify=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f090008;
-        public static final int clear_delete=0x7f090007;
-        public static final int clear_edittext=0x7f090006;
-        public static final int login_button=0x7f090002;
+        public static final int action_settings=0x7f09000a;
+        public static final int clear_delete=0x7f090009;
+        public static final int clear_edittext=0x7f090008;
+        public static final int login_button=0x7f090004;
         public static final int passwordEdit=0x7f090001;
-        public static final int titlebar_logo=0x7f090003;
-        public static final int titlebar_progress=0x7f090005;
-        public static final int titlebar_text_title=0x7f090004;
+        public static final int titlebar_logo=0x7f090005;
+        public static final int titlebar_progress=0x7f090007;
+        public static final int titlebar_text_title=0x7f090006;
         public static final int usernameEdit=0x7f090000;
+        public static final int verify=0x7f090003;
+        public static final int verifycode=0x7f090002;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -66,19 +73,20 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f060000;
-        public static final int app_name=0x7f060005;
+        public static final int app_name=0x7f060006;
         public static final int appname=0x7f060001;
-        public static final int btnRecordVideo=0x7f060009;
-        public static final int btnTakePicture=0x7f060008;
-        public static final int btnUploadToServer=0x7f06000b;
-        public static final int hello_world=0x7f060006;
-        public static final int introduce=0x7f06000d;
-        public static final int load_picture=0x7f06000c;
+        public static final int btnRecordVideo=0x7f06000a;
+        public static final int btnTakePicture=0x7f060009;
+        public static final int btnUploadToServer=0x7f06000c;
+        public static final int hello_world=0x7f060007;
+        public static final int introduce=0x7f06000e;
+        public static final int load_picture=0x7f06000d;
         public static final int login=0x7f060004;
-        public static final int or=0x7f06000a;
+        public static final int or=0x7f06000b;
         public static final int password=0x7f060003;
-        public static final int take_picture=0x7f060007;
+        public static final int take_picture=0x7f060008;
         public static final int username=0x7f060002;
+        public static final int verify=0x7f060005;
     }
     public static final class style {
         /**  标准的ActionBar样式 

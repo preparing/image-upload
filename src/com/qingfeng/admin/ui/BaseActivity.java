@@ -14,12 +14,12 @@ public class BaseActivity extends Activity{
 	/** 主要用来判断当前Activity是否在前端 */
 	public static boolean isFront = false;
 
-	public synchronized void setisFront(boolean bool) {
-		this.isFront = bool;
+	public static synchronized void setisFront(boolean bool) {
+		isFront = bool;
 	}
 
-	public synchronized boolean getidFront() {
-		return this.isFront;
+	public static synchronized boolean getidFront() {
+		return isFront;
 	}
 
 	/** 标题栏相关信息 */
@@ -43,10 +43,6 @@ public class BaseActivity extends Activity{
 	public ActionBar getMyActionBar() {
 		return this.actionBar;
 	}
-	
-
-	/**获取网络结束后最好都调用这个函数,这样写起来会更方便*/
-	public void getPostSuccess(){}
 	
 	/**获取XML数据管理实例*/
 	/*public Preference getPreference(){

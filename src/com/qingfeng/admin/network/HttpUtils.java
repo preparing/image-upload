@@ -13,20 +13,25 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
+
+import com.qingfeng.admin.utils.DebugUtil;
 
 
 public class HttpUtils {
 	private final String TAG = "HttpUtils";
 	
 	//服务器地址配置
-	public static String serverAddress = "10.60.136.39";
-	public static String serverPort = "80";
+	public String serverAddress = NetworkConfig.serverAddress;
+	public String serverPort = NetworkConfig.serverPort;
 	
 	private HttpClient httpClient;
+	
+	private String headerType = "application/x-www-form-urlencoded";
 	
 	//参数配置
     private final static int DEFAULT_RETRY_TIMES = 3;
@@ -50,6 +55,11 @@ public class HttpUtils {
 		if (port != null) {
 			serverPort = port;
 		}
+	}
+	
+	//设置请求头格式
+	public void setHeadType(String type){
+		headerType = type;
 	}
 	
 	public HttpUtils(){
@@ -86,7 +96,7 @@ public class HttpUtils {
 	}
 	
 	/** 向服务器发送Post请求 */
-	public InputStream post(String page, String data, String headerType)
+	public InputStream post(String page, String data)
 			throws URISyntaxException, ClientProtocolException, IOException {
 		HttpPost httpPost = new HttpPost();
 		httpPost.setHeader("Content-Type", headerType);
@@ -113,7 +123,7 @@ public class HttpUtils {
 	}
 	
 	/**Post的路径有端口号的情况*/
-	public InputStream postWithPort(String page, String data, String headerType)
+	public InputStream postWithPort(String page, String data)
 			throws URISyntaxException, ClientProtocolException, IOException {
 		HttpPost httpPost = new HttpPost();
 		httpPost.setHeader("Content-Type", headerType);
@@ -137,5 +147,29 @@ public class HttpUtils {
 		/*getCookieFromHeader(hdr);*/
 		InputStream ins = response.getEntity().getContent();
 		return ins;
+	}
+	
+	/** 用get方式获取网络图片*/
+	public InputStream getImageInputStream(String page) throws ClientProtocolException, IOException  {
+		String url = "http://" + serverAddress + ":" + serverPort + page;
+
+		DebugUtil.Println("The url is ",url);
+
+		HttpGet httpget = new HttpGet(url);
+		HttpResponse response = null;
+		response = httpClient.execute(httpget);
+		Header contentType = response.getFirstHeader("Content-Type");
+
+		if(contentType != null) {
+			System.out.println("the type is: " + contentType.getValue());
+
+			if(contentType.getValue().equals("text/xml")) {
+				return null;
+			} else {
+				InputStream stream = response.getEntity().getContent();
+				return stream;
+			}
+		}
+		return null;
 	}
 }
