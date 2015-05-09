@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 系统默认的按钮 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/rectangle_6666_blue5" android:state_enabled="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/rectangle_6666_blue5" android:state_enabled="true" android:state_focused="true"/>
+    <item android:drawable="@drawable/rectangle_6666_blue3"/>
+
+</selector>
