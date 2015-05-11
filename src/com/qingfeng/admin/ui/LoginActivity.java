@@ -1,10 +1,13 @@
 package com.qingfeng.admin.ui;
 
 import com.qingfeng.admin.R;
+import com.qingfeng.admin.bean.AdminInfo;
+import com.qingfeng.admin.bean.NetworkInfo;
 import com.qingfeng.admin.network.NetworkConfig;
 import com.qingfeng.admin.utils.DebugUtil;
 import com.qingfeng.admin.widget.ClearEditText;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,7 +77,7 @@ public class LoginActivity extends BaseActivity  implements Networkresult{
 		task.execute(NetworkConfig.verifyPath);
 	}
 	
-	/**获取网络结束后最好都调用这个函数,这样写起来会更方便*/
+	/**获取网络结束后最好都调用这个函数*/
 	@Override
 	public void getPostSuccess(int code) {
 		if(code == YTPE_VERIFY){
@@ -83,6 +86,26 @@ public class LoginActivity extends BaseActivity  implements Networkresult{
 			}else{
 				DebugUtil.Println("get image","null");
 			}
+		}else if(code == YTPE_LOGIN){
+			if(UIDataContainer.getAdmin() != null){
+				AdminInfo admin = UIDataContainer.getAdmin();
+				if(admin.getCode() == 0){
+					Toast.makeText(getApplicationContext(), "登陆成功:"+admin.getMessage(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(LoginActivity.this,PhotoActivity.class);
+					startActivity(intent);
+					LoginActivity.this.finish();
+				}else{
+					Toast.makeText(getApplicationContext(), "用户名或者密码错误", Toast.LENGTH_SHORT).show();
+				}
+			}else{
+				Toast.makeText(getApplicationContext(), "网络连接失败，请重试", Toast.LENGTH_SHORT).show();
+			}
 		}
+	}
+
+	@Override
+	public void getPostSuccess(int code, NetworkInfo info) {
+		// TODO Auto-generated method stub
+		
 	}
 }

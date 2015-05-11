@@ -1,5 +1,7 @@
 package com.qingfeng.admin.ui;
 
+import com.qingfeng.admin.bean.AdminInfo;
+
 import android.graphics.Bitmap;
 
 public class UIDataContainer {
@@ -13,4 +15,15 @@ public class UIDataContainer {
 	public static synchronized void setVerify(Bitmap verify){
 		verifyCode = verify;
 	}
+	
+	/**管理员登陆信息*/
+	private static AdminInfo admin;
+
+	public static synchronized AdminInfo getAdmin() {
+		return admin;
+	}
+	public static synchronized void setAdmin(AdminInfo admin) {
+		UIDataContainer.admin = admin;
+	}
+	
 }

@@ -3,21 +3,23 @@ package com.qingfeng.admin.ui;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
+import org.json.JSONObject;
 
+import android.os.AsyncTask;
+
+import com.qingfeng.admin.bean.AdminInfo;
 import com.qingfeng.admin.network.HttpUtils;
 import com.qingfeng.admin.utils.DataUtil;
 import com.qingfeng.admin.utils.DebugUtil;
+import com.qingfeng.admin.utils.JSONUtil;
 
-public class LoginTask extends AsyncTask<String,String,Bitmap> {
+public class LoginTask extends AsyncTask<String, String, AdminInfo> {
 	private final String TAG = "LoginTask";
 
 	private Networkresult mResult;
 	private int mType;
 
-	public LoginTask(Networkresult result,int type) {
+	public LoginTask(Networkresult result, int type) {
 		this.mResult = result;
 		this.mType = type;
 	}
@@ -28,26 +30,40 @@ public class LoginTask extends AsyncTask<String,String,Bitmap> {
 	}
 
 	@Override
-	protected Bitmap doInBackground(String... params) {
+	protected AdminInfo doInBackground(String... params) {
 		String page = params[0];
 		String user = params[1];
 		String pass = params[2];
 		String verif = params[3];
-		InputStream stream  =null;
-		Bitmap bitmap = null;
+		InputStream stream = null;
+		AdminInfo admin = new AdminInfo();
 		try {
 			HttpUtils http = new HttpUtils();
 			String postData = null;
 
-			postData = DataUtil.fomatSimplePostData("name", user,
-					"password", pass, "verifyCode", verif);
-			
+			postData = DataUtil.fomatSimplePostData("name", user, "password",
+					pass, "verifyCode", verif);
+
 			stream = http.post(page, postData);
-			DebugUtil.Println(stream);
-			/*bitmap = BitmapFactory.decodeStream(stream);*/
+			/* DebugUtil.Println(stream); */
+			
+			JSONObject object = JSONUtil.ParseJSON(stream);
+			if (object != null) {
+				try {
+					if(object.has("Code")){
+						admin.setCode(object.getInt("Code"));
+					}
+					if(object.has("Msg")){
+						admin.setMessage(object.getString("Msg"));
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
 				stream.close();
 			} catch (IOException e) {
@@ -55,14 +71,14 @@ public class LoginTask extends AsyncTask<String,String,Bitmap> {
 				e.printStackTrace();
 			}
 		}
-		return bitmap;
+		return admin;
 	}
 
 	@Override
-	protected void onPostExecute(Bitmap s) {
-		Log.d(TAG, "onPostExecute");
-		UIDataContainer.setVerify(s);
+	protected void onPostExecute(AdminInfo admin) {
+		UIDataContainer.setAdmin(admin);
 		// 执行Post结束后相关的操作
 		mResult.getPostSuccess(mType);
+
 	}
 }

@@ -15,6 +15,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HttpContext;
@@ -172,4 +173,32 @@ public class HttpUtils {
 		}
 		return null;
 	}
+	
+	/** 向服务器发送Put请求 */
+	public InputStream put(String page, String data)
+			throws URISyntaxException, ClientProtocolException, IOException {
+		HttpPut httpPut = new HttpPut();
+		httpPut.setHeader("Content-Type", headerType);
+
+		String url = "http://" + serverAddress + page;
+
+		// just for test;
+		System.out.println("The url is " + url);
+
+		httpPut.setURI(new URI(url));
+
+//		addCookieToHeader(httpPost);
+
+		StringEntity entity = new StringEntity(data);
+		httpPut.setEntity(entity);
+
+		HttpResponse response = httpClient.execute(httpPut);
+
+		Header hdr = response.getFirstHeader("Set-Cookie");
+
+//		getCookieFromHeader(hdr);
+		InputStream ins = response.getEntity().getContent();
+		return ins;
+	}
+	
 }
